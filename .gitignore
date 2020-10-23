@@ -209,3 +209,4 @@ DerivedData/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,macos,clion,xcode,vscode,cmake
+cmake-build/libdc.dylib
