@@ -23,6 +23,27 @@
 #include <sys/stat.h>
 
 
+void dc_stat(const char *restrict path, struct stat *restrict buf)
+{
+    dc_stat_error(dc_handle_error, path, buf);
+}
+
+void dc_stat_error(void (*handler)(const char *, const char *, int, int), const char *restrict path, struct stat *restrict buf)
+{
+    int status;
+    
+    status = stat(path, buf);
+    
+    if(status == -1)
+    {
+        if(handler)
+        {
+            handler("stat", __FILE__, __LINE__, errno);
+        }
+    }
+}
+
+
 void dc_mkfifo(const char *path, mode_t mode, bool can_exist)
 {
     dc_mkfifo_error(dc_handle_error, path, mode, can_exist);

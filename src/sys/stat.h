@@ -21,8 +21,11 @@
 
 #include <fcntl.h>
 #include <stdbool.h>
+#include <sys/stat.h>
 
 
+void dc_stat(const char *restrict path, struct stat *restrict buf);
+void dc_stat_error(void (*error_handler)(const char *, const char *, int, int), const char *restrict path, struct stat *restrict buf);
 void dc_mkfifo(const char *path, mode_t mode, bool can_exit);
 void dc_mkfifo_error(void (*error_handler)(const char *, const char *, int, int), const char *path, mode_t mode, bool can_exit);
 
