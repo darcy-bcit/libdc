@@ -31,9 +31,9 @@ void dc_stat(const char *restrict path, struct stat *restrict buf)
 void dc_stat_error(void (*handler)(const char *, const char *, int, int), const char *restrict path, struct stat *restrict buf)
 {
     int status;
-    
+
     status = stat(path, buf);
-    
+
     if(status == -1)
     {
         if(handler)
@@ -43,6 +43,26 @@ void dc_stat_error(void (*handler)(const char *, const char *, int, int), const 
     }
 }
 
+void dc_fstat(const int fd, struct stat *restrict buf)
+{
+    dc_fstat_error(dc_handle_error, fd, buf);
+}
+
+
+void dc_fstat_error(void (*handler)(const char *, const char *, int, int), const int fd, struct stat *restrict buf)
+{
+    int status;
+
+    status = fstat(fd, buf);
+
+    if(status == -1)
+    {
+        if(handler)
+        {
+            handler("fstat", __FILE__, __LINE__, errno);
+        }
+    }
+}
 
 void dc_mkfifo(const char *path, mode_t mode, bool can_exist)
 {
