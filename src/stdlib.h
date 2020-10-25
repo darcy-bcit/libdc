@@ -24,6 +24,7 @@
 
 void *dc_malloc(size_t bytes);
 void *dc_malloc_error(void (*error_handler)(const char *, const char *, int, int), size_t bytes);
+void dc_free(void **pmemory);
 
 
 #endif

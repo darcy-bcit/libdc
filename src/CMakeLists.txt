@@ -4,7 +4,7 @@ project(dc C)
 set(CMAKE_C_STANDARD 11)
 
 add_library(dc SHARED dlfcn.c error.c fcntl.c stdlib.c unistd.c sys/mman.c sys/stat.c)
-target_link_libraries(dc dl)
+target_link_libraries(dc dl pthread)
 target_compile_options(dc PRIVATE -Wpedantic -Wall -Wextra -fPIC)
 
 install(TARGETS dc DESTINATION lib)
