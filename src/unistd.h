@@ -31,7 +31,7 @@ void dc_close_error(void (*error_handler)(const char *, const char *, int, int),
 void dc_pipe(int fds[2]);
 void dc_pipe_error(void (*error_handler)(const char *, const char *, int, int), int fds[2]);
 off_t dc_lseek(int fd, off_t offset, int whence);
-off_t dc_lseek_error(dc_errno_handler handler, int fd, off_t offset, int whence);
+off_t dc_lseek_error(void (*error_handler)(const char *, const char *, int, int), int fd, off_t offset, int whence);
 
 
 #endif
