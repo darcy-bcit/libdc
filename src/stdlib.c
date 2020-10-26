@@ -24,9 +24,9 @@
 void *dc_malloc(size_t bytes)
 {
     void *memory;
-    
+
     memory = dc_malloc_error(dc_handle_error, bytes);
-    
+
     return memory;
 }
 
@@ -34,9 +34,9 @@ void *dc_malloc(size_t bytes)
 void *dc_malloc_error(dc_errno_handler handler, size_t bytes)
 {
     void *memory;
-    
+
     memory = calloc(1, bytes);
-    
+
     if(memory == NULL)
     {
         if(handler)
@@ -52,4 +52,26 @@ void dc_free(void **pmemory)
 {
     free(*pmemory);
     *pmemory = NULL;
+}
+
+int dc_mkstemp(char * template)
+{
+    return dc_mkstemp_error(dc_handle_error, template);
+}
+
+int dc_mkstemp_error(dc_errno_handler  handler, char * template)
+{
+    int temp_fd;
+
+    temp_fd = mkstemp(template);
+
+    if(temp_fd == -1)
+    {
+        if(handler)
+        {
+            handler("mkstemp", __FILE__, __LINE__, errno);
+        }
+    }
+
+    return temp_fd;
 }
