@@ -112,15 +112,15 @@ void dc_pipe_error(dc_errno_handler handler, int fds[2])
     }
 }
 
-int dc_lseek(int fd, off_t offset, int whence)
+off_t dc_lseek(int fd, off_t offset, int whence)
 {
     return dc_lseek_error(dc_handle_error, fd, offset, whence);
 }
 
 
-int dc_lseek_error(dc_errno_handler handler, int fd, off_t offset, int whence)
+off_t dc_lseek_error(dc_errno_handler handler, int fd, off_t offset, int whence)
 {
-    ssize_t position;
+    off_t position;
 
     position = lseek( fd, offset, whence);
 
