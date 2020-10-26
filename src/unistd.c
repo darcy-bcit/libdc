@@ -134,3 +134,26 @@ off_t dc_lseek_error(dc_errno_handler handler, int fd, off_t offset, int whence)
 
     return position;
 }
+
+int dc_unlink( const char * pathname)
+{
+    return dc_unlink_error(dc_handle_error, pathname);
+}
+
+
+int dc_unlink_error(dc_errno_handler handler, const char * pathname)
+{
+    int status;
+
+    status = unlink(pathname);
+
+    if(status == -1)
+    {
+        if(handler)
+        {
+            handler("lseek", __FILE__, __LINE__, errno);
+        }
+    }
+
+    return status;
+}
