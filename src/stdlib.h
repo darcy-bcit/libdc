@@ -25,6 +25,8 @@
 void *dc_malloc(size_t bytes);
 void *dc_malloc_error(void (*error_handler)(const char *, const char *, int, int), size_t bytes);
 void dc_free(void **pmemory);
+int dc_mkstemp(char * template);
+int dc_mkstemp_error(dc_errno_handler  handler, char * template);
 
 
 #endif
