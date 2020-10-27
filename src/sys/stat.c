@@ -19,7 +19,6 @@
 #include "stat.h"
 #include <errno.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <sys/stat.h>
 
 
@@ -28,7 +27,7 @@ void dc_stat(const char *restrict path, struct stat *restrict buf)
     dc_stat_error(dc_handle_error, path, buf);
 }
 
-void dc_stat_error(void (*handler)(const char *, const char *, int, int), const char *restrict path, struct stat *restrict buf)
+void dc_stat_error(dc_errno_handler handler, const char *restrict path, struct stat *restrict buf)
 {
     int status;
 
@@ -49,7 +48,7 @@ void dc_fstat(const int fd, struct stat *restrict buf)
 }
 
 
-void dc_fstat_error(void (*handler)(const char *, const char *, int, int), const int fd, struct stat *restrict buf)
+void dc_fstat_error(dc_errno_handler handler, const int fd, struct stat *restrict buf)
 {
     int status;
 
@@ -78,7 +77,6 @@ void dc_mkfifo_error(dc_errno_handler handler, const char *path, mode_t mode, bo
     
     if(status == -1)
     {
-        printf("%d\n", errno);
         if(errno != EEXIST || !(can_exist))
         {
             if(handler)

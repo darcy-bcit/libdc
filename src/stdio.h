@@ -1,5 +1,5 @@
-#ifndef DC_SYS_MMAN_H
-#define DC_SYS_MMAN_H
+#ifndef DC_STDLIB_H
+#define DC_STDLIB_H
 
 
 /*
@@ -19,12 +19,12 @@
  */
 
 
-#include "../error.h"
-#include <sys/stat.h>
+#include "error.h"
+#include <stdbool.h>
 
 
-int dc_shm_open(const char *name, int oflag, mode_t mode);
-int dc_shm_open_error(dc_errno_handler handler, const char *name, int oflag, mode_t mode);
+int dc_remove(const char *path, bool must_exist);
+int dc_remove_error(dc_errno_handler handler, const char *path, bool must_exist);
 
 
 #endif

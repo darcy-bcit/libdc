@@ -22,14 +22,15 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <sys/stat.h>
+#include "../error.h"
 
 
 void dc_stat(const char *restrict path, struct stat *restrict buf);
-void dc_stat_error(void (*error_handler)(const char *, const char *, int, int), const char *restrict path, struct stat *restrict buf);
+void dc_stat_error(dc_errno_handler handler, const char *restrict path, struct stat *restrict buf);
 void dc_fstat(const int fd, struct stat *restrict buf);
-void dc_fstat_error(void (*error_handler)(const char *, const char *, int, int), const int fd, struct stat *restrict buf);
+void dc_fstat_error(dc_errno_handler handler, const int fd, struct stat *restrict buf);
 void dc_mkfifo(const char *path, mode_t mode, bool can_exit);
-void dc_mkfifo_error(void (*error_handler)(const char *, const char *, int, int), const char *path, mode_t mode, bool can_exit);
+void dc_mkfifo_error(dc_errno_handler handler, const char *path, mode_t mode, bool can_exit);
 
 
 #endif

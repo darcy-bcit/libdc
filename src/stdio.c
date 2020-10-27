@@ -1,7 +1,3 @@
-#ifndef DC_SYS_MMAN_H
-#define DC_SYS_MMAN_H
-
-
 /*
  * Copyright 2020 D'Arcy Smith + the BCIT CST Datacommunications Option students.
  *
@@ -19,12 +15,35 @@
  */
 
 
-#include "../error.h"
-#include <sys/stat.h>
+#include "error.h"
+#include "stdio.h"
+#include <errno.h>
+#include <stdio.h>
 
 
-int dc_shm_open(const char *name, int oflag, mode_t mode);
-int dc_shm_open_error(dc_errno_handler handler, const char *name, int oflag, mode_t mode);
+int dc_remove(const char *path, bool must_exist)
+{
+    return dc_remove_error(dc_handle_error, path, must_exist);
+}
 
 
-#endif
+int dc_remove_error(dc_errno_handler handler, const char *path, bool must_exist)
+{
+    int ret_val;
+
+    ret_val = remove(path);
+
+    if(ret_val < 0)
+    {
+        if(errno != ENOENT || must_exist)
+        {
+            if (handler)
+            {
+                handler("remove", __FILE__, __LINE__, errno);
+            }
+        }
+    }
+
+    return ret_val;
+}
+

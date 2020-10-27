@@ -54,12 +54,12 @@ void dc_free(void **pmemory)
     *pmemory = NULL;
 }
 
-int dc_mkstemp(char * template)
+int dc_mkstemp(char *template)
 {
     return dc_mkstemp_error(dc_handle_error, template);
 }
 
-int dc_mkstemp_error(dc_errno_handler  handler, char * template)
+int dc_mkstemp_error(dc_errno_handler  handler, char *template)
 {
     int temp_fd;
 
