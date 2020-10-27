@@ -64,6 +64,14 @@ ssize_t dc_write_error(dc_errno_handler handler, int fd, const void *data, size_
             handler("write", __FILE__, __LINE__, errno);
         }
     }
+
+    if(status != (ssize_t)length)
+    {
+        if(handler)
+        {
+            handler("write underflow", __FILE__, __LINE__, errno);
+        }
+    }
     
     return status;
 }
