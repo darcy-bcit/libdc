@@ -32,6 +32,7 @@ void dc_pipe(int fds[2]);
 void dc_pipe_error(void (*error_handler)(const char *, const char *, int, int), int fds[2]);
 off_t dc_lseek(int fd, off_t offset, int whence);
 off_t dc_lseek_error(void (*error_handler)(const char *, const char *, int, int), int fd, off_t offset, int whence);
-
+int dc_unlink( const char * pathname);
+int dc_unlink_error( void (*error_handler)(const char *, const char *, int, int), const char * pathname);
 
 #endif
