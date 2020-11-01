@@ -6,8 +6,17 @@ include_directories(/usr/local/include)
 link_directories(/usr/local/lib)
 
 add_library(dc SHARED dlfcn.c error.c fcntl.c netdb.c stdio.c stdlib.c unistd.c sys/mman.c sys/stat.c sys/socket.c)
-# target_link_libraries(dc dl pthread)
 target_compile_options(dc PRIVATE -Wpedantic -Wall -Wextra -fPIC)
+
+find_library(LIBDL dl)
+if(LIBDL)
+  target_link_libraries(dc ${LIBDL})
+endif()
+
+find_library(LIBRT rt)
+if(LIBRT)
+  target_link_libraries(dc ${LIBRT})
+endif()
 
 install(TARGETS dc DESTINATION lib)
 install(FILES dlfcn.h error.h fcntl.h netdb.h stdio.h stdlib.h unistd.h DESTINATION include/dc)
