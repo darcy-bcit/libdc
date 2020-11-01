@@ -48,6 +48,33 @@ void *dc_malloc_error(dc_errno_handler handler, size_t bytes)
     return memory;
 }
 
+void *dc_realloc(void * ptr, size_t bytes)
+{
+    void *memory;
+
+    memory = dc_realloc_error(dc_handle_error, ptr, bytes);
+
+    return memory;
+}
+
+
+void *dc_realloc_error(dc_errno_handler handler, void * ptr, size_t bytes)
+{
+    void *memory;
+
+    memory = realloc(ptr, bytes);
+
+    if(memory == NULL)
+    {
+        if(handler)
+        {
+            handler("calloc", __FILE__, __LINE__, errno);
+        }
+    }
+
+    return memory;
+}
+
 void dc_free(void **pmemory)
 {
     free(*pmemory);
