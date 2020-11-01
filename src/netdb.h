@@ -1,5 +1,5 @@
-#ifndef DC_STDIO_H
-#define DC_STDIO_H
+#ifndef DC_NETDB_H
+#define DC_NETDB_H
 
 
 /*
@@ -19,12 +19,12 @@
  */
 
 
-#include "error.h"
-#include <stdbool.h>
+#include <sys/socket.h>
 
 
-int dc_remove(const char *path, bool must_exist);
-int dc_remove_error(dc_errno_handler handler, const char *path, bool must_exist);
-
+struct hostent *dc_gethostbyaddr(const void *addr, socklen_t len, int type);
+struct hostent *dc_gethostbyaddr_error(void (*error_handler)(const char *, const char *, int, int), const void *addr, socklen_t len, int type);
+struct hostent *dc_gethostbyname(const char *name);
+struct hostent *dc_gethostbyname_error(void (*error_handler)(const char *, const char *, int, int), const char *name);
 
 #endif
