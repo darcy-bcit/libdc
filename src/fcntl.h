@@ -19,8 +19,11 @@
  */
 
 
+#include "error.h"
+
+
 int dc_open(const char *path, int oflag, ...);
-int dc_open_error(void (*error_handler)(const char *, const char *, int, int), const char *path, int oflag, ...);
+int dc_open_error(dc_errno_handler handler, const char *path, int oflag, ...);
 
 
 #endif

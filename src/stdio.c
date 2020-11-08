@@ -35,9 +35,9 @@ int dc_remove_error(dc_errno_handler handler, const char *path, bool must_exist)
 
     if(ret_val < 0)
     {
-        if(errno != ENOENT || must_exist)
+        if(errno != ENOENT || (errno == ENOENT && must_exist))
         {
-            if (handler)
+            if(handler)
             {
                 handler("remove", __FILE__, __LINE__, errno);
             }
@@ -47,3 +47,27 @@ int dc_remove_error(dc_errno_handler handler, const char *path, bool must_exist)
     return ret_val;
 }
 
+FILE *dc_fopen(const char *restrict pathname, const char *restrict mode, bool must_exist)
+{
+    return dc_fopen_error(dc_handle_error, pathname, mode, must_exist);
+}
+
+FILE *dc_fopen_error(dc_errno_handler handler, const char *restrict pathname, const char *restrict mode, bool must_exist)
+{
+    FILE *file;
+
+    file = fopen(pathname, mode);
+
+    if(file == NULL)
+    {
+        if(errno != ENOENT || (errno == ENOENT && must_exist))
+        {
+            if(handler)
+            {
+                handler("fopen", __FILE__, __LINE__, errno);
+            }
+        }
+    }
+
+    return file;
+}

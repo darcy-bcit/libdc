@@ -19,10 +19,10 @@
  */
 
 
+#include "../error.h"
 #include <fcntl.h>
 #include <stdbool.h>
 #include <sys/stat.h>
-#include "../error.h"
 
 
 void dc_stat(const char *restrict path, struct stat *restrict buf);

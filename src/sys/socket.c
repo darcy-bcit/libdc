@@ -97,7 +97,8 @@ int dc_accept_error(dc_errno_handler handler, int sockfd, struct sockaddr *addr,
 
     ret_val = accept(sockfd, addr, addrlen);
 
-    if(ret_val < 0)
+    // interrupted is not a bad thing necessarily
+    if(ret_val < 0 && errno != EINTR)
     {
         if(handler)
         {

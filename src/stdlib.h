@@ -19,17 +19,22 @@
  */
 
 
+#include "error.h"
 #include <stddef.h>
+#include <stdio.h>
 
 
 void *dc_malloc(size_t bytes);
-void *dc_malloc_error(void (*error_handler)(const char *, const char *, int, int), size_t bytes);
+void *dc_malloc_error(dc_errno_handler handler, size_t bytes);
 void *dc_realloc(void * ptr, size_t bytes);
-void *dc_realloc_error(void (*error_handler)(const char *, const char *, int, int), void * ptr, size_t bytes);
+void *dc_realloc_error(dc_errno_handler handler, void * ptr, size_t bytes);
 void dc_free(void **pmemory);
 int dc_mkstemp(char * template);
-int dc_mkstemp_error(void (*error_handler)(const char *, const char *, int, int), char * template);
-
+int dc_mkstemp_error(dc_errno_handler handler, char * template);
+long dc_strtol(const char *restrict nptr, char **restrict endptr, int base);
+long dc_strtol_error(dc_errno_handler handler, const char *restrict nptr, char **restrict endptr, int base);
+long long dc_strtoll(const char *restrict nptr, char **restrict endptr, int base);
+long long dc_strtoll_error(dc_errno_handler handler, const char *restrict nptr, char **restrict endptr, int base);
 
 
 #endif

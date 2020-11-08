@@ -37,9 +37,11 @@ int dc_open(const char *path, int oflag, ...)
 
 int dc_open_error(dc_errno_handler handler, const char *path, int oflag, ...)
 {
+    va_list args;
     int fd;
-    
-    fd = open(path, oflag);
+
+    va_start(args, oflag);
+    fd = open(path, oflag, args);
     
     if(fd == -1)
     {

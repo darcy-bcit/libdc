@@ -26,8 +26,9 @@ void dc_handle_error(const char *func, const char *file_name, int line_number, i
     char *message;
     
     message = strerror(errno);
-    dc_handle_error_message(func, file_name, line_number, message);
-}
+    fprintf(stderr, "%s (%d) - %s (%d): %s\n", file_name, line_number, func, errno, message);
+    exit(EXIT_FAILURE);
+ }
 
 void dc_handle_error_message(const char *func, const char *file_name, int line_number, const char *message)
 {

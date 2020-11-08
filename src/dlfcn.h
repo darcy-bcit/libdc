@@ -19,12 +19,15 @@
  */
 
 
+#include "error.h"
+
+
 void *dc_dlopen(const char * restrict file, int mode);
-void *dc_dlopen_error(void (*error_handler)(const char *, const char *, int, const char *), const char * restrict file, int mode);
+void *dc_dlopen_error(dc_message_handler handler, const char * restrict file, int mode);
 void dc_dlclose(void * restrict handle);
-void dc_dlclose_error(void (*error_handler)(const char *, const char *, int, const char *), void * restrict handle);
+void dc_dlclose_error(dc_message_handler handler, void * restrict handle);
 void *dc_dlsym(void * restrict handle, const char * restrict name);
-void *dc_dlsym_error(void (*error_handler)(const char *, const char *, int, const char *), void * restrict handle, const char * restrict name);
+void *dc_dlsym_error(dc_message_handler handler, void * restrict handle, const char * restrict name);
 
 
 #endif
