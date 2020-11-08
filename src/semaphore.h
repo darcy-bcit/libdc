@@ -19,25 +19,28 @@
 
 #include <semaphore.h>
 
-int    dc_sem_close(sem_t *);
-int    dc_sem_close_error(void (*error_handler)(const char *, const char *, int, int), sem_t *);
-int    dc_sem_wait(sem_t *);
-int    dc_sem_wait_error(void (*error_handler)(const char *, const char *, int, int), sem_t *);
-int    dc_sem_destroy(sem_t *);
-int    dc_sem_destroy_error(void (*error_handler)(const char *, const char *, int, int), sem_t *);
-int    dc_sem_getvalue(sem_t *restrict, int *restrict);
-int    dc_sem_getvalue_error(void (*error_handler)(const char *, const char *, int, int), sem_t *restrict, int *restrict);
-int    dc_sem_init(sem_t *, int, unsigned);
-int    dc_sem_init_error(void (*error_handler)(const char *, const char *, int, int), sem_t *, int, unsigned);
-sem_t * dc_sem_open(const char *, int, ...);
-sem_t * dc_sem_open_error(void (*error_handler)(const char *, const char *, int, int), const char *, int, ...);
-int    dc_sem_post(sem_t *);
-int    dc_sem_post_error(void (*error_handler)(const char *, const char *, int, int), sem_t *);
-int    dc_sem_timedwait(sem_t *restrict, const struct timespec *restrict);
-int    dc_sem_timedwait_error(void (*error_handler)(const char *, const char *, int, int), sem_t *restrict, const struct timespec *restrict);
-int    dc_sem_unlink(const char *);
-int    dc_sem_unlink_error(void (*error_handler)(const char *, const char *, int, int), const char *);
-int    dc_sem_trywait(sem_t *);
-int    dc_sem_trywait_error(void (*error_handler)(const char *, const char *, int, int), sem_t *);
+int    dc_sem_close(sem_t * sem);
+int    dc_sem_close_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem);
+int    dc_sem_wait(sem_t * sem);
+int    dc_sem_wait_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem);
+int    dc_sem_destroy(sem_t * sem);
+int    dc_sem_destroy_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem);
+int    dc_sem_getvalue(sem_t *restrict sem, int *restrict sval);
+int    dc_sem_getvalue_error(void (*error_handler)(const char *, const char *, int, int), sem_t *restrict sem,
+                             int *restrict sval);
+int    dc_sem_init(sem_t * sem, int pshared, unsigned int value);
+int    dc_sem_init_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem, int pshared,
+                         unsigned int value);
+sem_t * dc_sem_open(const char * name, int oflag, ...);
+sem_t * dc_sem_open_error(void (*error_handler)(const char *, const char *, int, int), const char * name, int oflag, ...);
+int    dc_sem_post(sem_t * sem);
+int    dc_sem_post_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem);
+int    dc_sem_timedwait(sem_t *restrict sem, const struct timespec *restrict abstime);
+int    dc_sem_timedwait_error(void (*error_handler)(const char *, const char *, int, int), sem_t *restrict sem,
+                              const struct timespec *restrict);
+int    dc_sem_unlink(const char * name);
+int    dc_sem_unlink_error(void (*error_handler)(const char *, const char *, int, int), const char * name);
+int    dc_sem_trywait(sem_t * sem);
+int    dc_sem_trywait_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem);
 
 #endif //DC_SEMAPHORE_H
