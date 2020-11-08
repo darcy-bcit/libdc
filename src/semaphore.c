@@ -123,15 +123,23 @@ int dc_sem_init_error(dc_errno_handler handler, sem_t * sem, int pshared, unsign
 
 sem_t * dc_sem_open(const char * name, int oflag, ...) {
     va_list args;
-    return dc_sem_open_error(dc_handle_error, name, oflag, args);
+    va_start(args, oflag);
+    mode_t mode = (mode_t) va_arg(args, int);
+    unsigned int value = va_arg(args, unsigned int);
+    va_end(args);
+    return dc_sem_open_error(dc_handle_error, name, oflag, mode, value);
 }
 
 sem_t * dc_sem_open_error(dc_errno_handler handler, const char * name, int oflag, ...) {
     va_list args;
+    va_start(args, oflag);
+    mode_t mode = (mode_t) va_arg(args, int);
+    unsigned int value = va_arg(args, unsigned int);
+    va_end(args);
 
     sem_t * sem;
 
-    sem = sem_open(name, oflag, args);
+    sem = sem_open(name, oflag, mode, value);
 
     if(sem == SEM_FAILED)
     {
