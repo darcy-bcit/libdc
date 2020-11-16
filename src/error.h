@@ -19,6 +19,9 @@
  */
 
 
+#include "error.h"
+
+
 typedef void (*dc_errno_handler)(const char *, const char *, int, int);
 typedef void (*dc_message_handler)(const char *, const char *, int, const char *);
 

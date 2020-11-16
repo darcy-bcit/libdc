@@ -20,16 +20,17 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <stdarg.h>
-#include <stdlib.h>
 
 
 int dc_open(const char *path, int oflag, ...)
 {
     va_list args;
     int fd;
-    
+    int mode;
+
     va_start(args, oflag);
-    fd = dc_open_error(dc_handle_error, path, oflag, args);
+    mode = va_arg (args, int);
+    fd   = dc_open_error(dc_handle_error, path, oflag, (mode_t)mode);
     
     return fd;
 }
@@ -37,9 +38,13 @@ int dc_open(const char *path, int oflag, ...)
 
 int dc_open_error(dc_errno_handler handler, const char *path, int oflag, ...)
 {
+    va_list args;
     int fd;
-    
-    fd = open(path, oflag);
+    int mode;
+
+    va_start(args, oflag);
+    mode = va_arg (args, int);
+    fd   = open(path, oflag, (mode_t)mode);
     
     if(fd == -1)
     {

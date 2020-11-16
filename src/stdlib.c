@@ -48,7 +48,7 @@ void *dc_malloc_error(dc_errno_handler handler, size_t bytes)
     return memory;
 }
 
-void *dc_realloc(void * ptr, size_t bytes)
+void *dc_realloc(void *ptr, size_t bytes)
 {
     void *memory;
 
@@ -58,7 +58,7 @@ void *dc_realloc(void * ptr, size_t bytes)
 }
 
 
-void *dc_realloc_error(dc_errno_handler handler, void * ptr, size_t bytes)
+void *dc_realloc_error(dc_errno_handler handler, void *ptr, size_t bytes)
 {
     void *memory;
 
@@ -68,17 +68,11 @@ void *dc_realloc_error(dc_errno_handler handler, void * ptr, size_t bytes)
     {
         if(handler)
         {
-            handler("calloc", __FILE__, __LINE__, errno);
+            handler("realloc", __FILE__, __LINE__, errno);
         }
     }
 
     return memory;
-}
-
-void dc_free(void **pmemory)
-{
-    free(*pmemory);
-    *pmemory = NULL;
 }
 
 int dc_mkstemp(char *template)
@@ -88,11 +82,11 @@ int dc_mkstemp(char *template)
 
 int dc_mkstemp_error(dc_errno_handler  handler, char *template)
 {
-    int temp_fd;
+    int fd;
 
-    temp_fd = mkstemp(template);
+    fd = mkstemp(template);
 
-    if(temp_fd == -1)
+    if(fd == -1)
     {
         if(handler)
         {
@@ -100,5 +94,79 @@ int dc_mkstemp_error(dc_errno_handler  handler, char *template)
         }
     }
 
-    return temp_fd;
+    return fd;
+}
+
+long dc_strtol(const char *restrict nptr, char **restrict endptr, int base)
+{
+    return dc_strtol_error(dc_handle_error, nptr, endptr, base);
+}
+
+long dc_strtol_error(dc_errno_handler handler, const char *restrict nptr, char **restrict endptr, int base)
+{
+    long val;
+    char *tmp_ptr;
+
+    val = strtol(nptr, &tmp_ptr, base);
+
+    if(endptr)
+    {
+        *endptr = tmp_ptr;
+    }
+
+    if(nptr == tmp_ptr)
+    {
+        if(handler)
+        {
+            // this is broken, errno isn't set... hmmmm
+            handler("strtol", __FILE__, __LINE__, errno);
+        }
+    }
+
+    if(val == -1)
+    {
+        if(handler)
+        {
+            handler("strtol", __FILE__, __LINE__, errno);
+        }
+    }
+
+    return val;
+}
+
+long long dc_strtoll(const char *restrict nptr, char **restrict endptr, int base)
+{
+    return dc_strtoll_error(dc_handle_error, nptr, endptr, base);
+}
+
+long long dc_strtoll_error(dc_errno_handler handler, const char *restrict nptr, char **restrict endptr, int base)
+{
+    long val;
+    char *tmp_ptr;
+
+    val = strtoll(nptr, &tmp_ptr, base);
+
+    if(endptr)
+    {
+        *endptr = tmp_ptr;
+    }
+
+    if(nptr == tmp_ptr)
+    {
+        if(handler)
+        {
+            // this is broken, errno isn't set... hmmmm
+            handler("strtol", __FILE__, __LINE__, errno);
+        }
+    }
+
+    if(val == -1)
+    {
+        if(handler)
+        {
+            handler("strtoll", __FILE__, __LINE__, errno);
+        }
+    }
+
+    return val;
 }

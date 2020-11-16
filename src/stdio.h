@@ -21,10 +21,13 @@
 
 #include "error.h"
 #include <stdbool.h>
+#include <stdio.h>
 
 
 int dc_remove(const char *path, bool must_exist);
 int dc_remove_error(dc_errno_handler handler, const char *path, bool must_exist);
+FILE *dc_fopen(const char *restrict pathname, const char *restrict mode, bool must_exist);
+FILE *dc_fopen_error(dc_errno_handler handler, const char *restrict pathname, const char *restrict mode, bool must_exist);
 
 
 #endif

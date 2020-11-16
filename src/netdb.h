@@ -19,12 +19,13 @@
  */
 
 
+#include "error.h"
 #include <sys/socket.h>
 
 
 struct hostent *dc_gethostbyaddr(const void *addr, socklen_t len, int type);
-struct hostent *dc_gethostbyaddr_error(void (*error_handler)(const char *, const char *, int, int), const void *addr, socklen_t len, int type);
+struct hostent *dc_gethostbyaddr_error(dc_errno_handler handler, const void *addr, socklen_t len, int type);
 struct hostent *dc_gethostbyname(const char *name);
-struct hostent *dc_gethostbyname_error(void (*error_handler)(const char *, const char *, int, int), const char *name);
+struct hostent *dc_gethostbyname_error(dc_errno_handler handler, const char *name);
 
 #endif

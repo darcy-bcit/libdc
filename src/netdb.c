@@ -26,7 +26,7 @@ struct hostent *dc_gethostbyaddr(const void *addr, socklen_t len, int type)
 {
     return dc_gethostbyaddr_error(dc_handle_error, addr, len, type);
 }
-struct hostent *dc_gethostbyaddr_error(void (*handler)(const char *, const char *, int, int), const void *addr, socklen_t len, int type)
+struct hostent *dc_gethostbyaddr_error(dc_errno_handler handler, const void *addr, socklen_t len, int type)
 {
     struct hostent *entry;
 
@@ -48,7 +48,7 @@ struct hostent *dc_gethostbyname(const char *name)
     return dc_gethostbyname_error(dc_handle_error, name);
 }
 
-struct hostent *dc_gethostbyname_error(void (*handler)(const char *, const char *, int, int), const char *name)
+struct hostent *dc_gethostbyname_error(dc_errno_handler handler, const char *name)
 {
     struct hostent *entry;
 

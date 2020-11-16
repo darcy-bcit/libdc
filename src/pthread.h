@@ -1,7 +1,3 @@
-#ifndef DLFCN_H
-#define DLFCN_H
-
-
 /*
  * Copyright 2020 D'Arcy Smith + the BCIT CST Datacommunications Option students.
  *
@@ -19,15 +15,16 @@
  */
 
 
+#ifndef DC_PTHREAD_H
+#define DC_PTHREAD_H
+
 #include "error.h"
+#include <pthread.h>
 
+int dc_pthread_join(pthread_t thread, void ** value_ptr);
+int dc_pthread_join_error(dc_errno_handler handler, pthread_t thread, void ** value_ptr);
+int dc_pthread_create(pthread_t * thread, const pthread_attr_t * attr, void *(* start_routine)(void *), void * arg);
+int dc_pthread_create_error(dc_errno_handler handler, pthread_t * thread, const pthread_attr_t * attr,
+                         void *(* start_routine)(void *), void * arg);
 
-void *dc_dlopen(const char * restrict file, int mode);
-void *dc_dlopen_error(dc_message_handler handler, const char * restrict file, int mode);
-void dc_dlclose(void * restrict handle);
-void dc_dlclose_error(dc_message_handler handler, void * restrict handle);
-void *dc_dlsym(void * restrict handle, const char * restrict name);
-void *dc_dlsym_error(dc_message_handler handler, void * restrict handle, const char * restrict name);
-
-
-#endif
+#endif //DC_PTHREAD_H
