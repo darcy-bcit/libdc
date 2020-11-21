@@ -59,3 +59,23 @@ int dc_pthread_create_error(dc_errno_handler handler, pthread_t * thread, const 
 
     return status;
 }
+
+int dc_pthread_detach(pthread_t thread) {
+    return dc_pthread_detach_error(dc_handle_error, thread);
+}
+
+int dc_pthread_detach_error(dc_errno_handler handler, pthread_t thread) {
+    int status;
+
+    status = pthread_detach(thread);
+
+    if(status != 0)
+    {
+        if(handler)
+        {
+            handler("pthread_detach", __FILE__, __LINE__, errno);
+        }
+    }
+
+    return status;
+}
