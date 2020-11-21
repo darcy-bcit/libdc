@@ -26,5 +26,7 @@ int dc_pthread_join_error(dc_errno_handler handler, pthread_t thread, void ** va
 int dc_pthread_create(pthread_t * thread, const pthread_attr_t * attr, void *(* start_routine)(void *), void * arg);
 int dc_pthread_create_error(dc_errno_handler handler, pthread_t * thread, const pthread_attr_t * attr,
                          void *(* start_routine)(void *), void * arg);
+int dc_pthread_detach(pthread_t thread);
+int dc_pthread_detach_error(dc_errno_handler handler, pthread_t thread);
 
 #endif //DC_PTHREAD_H
