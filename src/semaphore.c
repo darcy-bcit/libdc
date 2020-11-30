@@ -172,25 +172,6 @@ int dc_sem_post_error(dc_errno_handler handler, sem_t * sem) {
     return status;
 }
 
-int dc_sem_timedwait(sem_t *restrict sem, const struct timespec *restrict abstime) {
-    return dc_sem_timedwait_error(dc_handle_error, sem, abstime);
-}
-
-int dc_sem_timedwait_error(dc_errno_handler handler, sem_t *restrict sem, const struct timespec *restrict abstime) {
-    int status;
-
-    status = sem_timedwait(sem, abstime);
-
-    if(status == -1)
-    {
-        if(handler)
-        {
-            handler("sem_timedwait", __FILE__, __LINE__, errno);
-        }
-    }
-
-    return status;
-}
 
 int dc_sem_unlink(const char * name) {
     return dc_sem_unlink_error(dc_handle_error, name);
