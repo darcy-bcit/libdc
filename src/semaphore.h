@@ -35,9 +35,7 @@ sem_t * dc_sem_open(const char * name, int oflag, ...);
 sem_t * dc_sem_open_error(void (*error_handler)(const char *, const char *, int, int), const char * name, int oflag, ...);
 int    dc_sem_post(sem_t * sem);
 int    dc_sem_post_error(void (*error_handler)(const char *, const char *, int, int), sem_t * sem);
-int    dc_sem_timedwait(sem_t *restrict sem, const struct timespec *restrict abstime);
-int    dc_sem_timedwait_error(void (*error_handler)(const char *, const char *, int, int), sem_t *restrict sem,
-                              const struct timespec *restrict);
+
 int    dc_sem_unlink(const char * name);
 int    dc_sem_unlink_error(void (*error_handler)(const char *, const char *, int, int), const char * name);
 int    dc_sem_trywait(sem_t * sem);
