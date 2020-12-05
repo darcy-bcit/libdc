@@ -159,7 +159,7 @@ int dc_unlink_error(dc_errno_handler handler, const char *pathname)
     {
         if(handler)
         {
-            handler("lseek", __FILE__, __LINE__, errno);
+            handler("unlink", __FILE__, __LINE__, errno);
         }
     }
 
